@@ -1,0 +1,18 @@
+<h2>入金申請一覧</h2>
+<% @payments.each do |payment| %>
+	<% if payment.approval.nil? %>
+		<div class="col-sm-offset-4">
+			<h3>
+				ユーザーID: <%= payment.user.id %>&emsp;&emsp;
+				<%= payment.user.name %>&emsp;&emsp;&emsp;
+				<%= payment.payment %>円&emsp;&emsp;&emsp;
+				<%= link_to balance_save_path(user_id: payment.user_id, payment_id: payment.id), method: :post do %>
+					<div class="btn btn-primary">承認</div>
+				<% end %>
+				<%= link_to payment_path(payment), method: :delete, data: { confirm: 'キャンセルしますか?' } do %>
+					<div class="btn btn-danger">キャンセル</div>
+				<% end %>
+			</h3>
+		</div>
+	<% end %>
+<% end %>

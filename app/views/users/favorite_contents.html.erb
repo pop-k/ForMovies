@@ -1,0 +1,37 @@
+<div class="conteiner" style="margin: 0 1%;">
+	<div class="well" style="height: 100px; width: 50%; margin: 20px auto; background-color: #333333;">
+    <h1 class="text-center">お気に入りの動画</h1>
+  </div>
+
+  <% @favorite_contents.each do |favorite_content| %>
+	 <% content = Content.find(favorite_content.content_id) %>
+		<div class="well col-sm-6" style="background-color: #222222; height: 800px;">
+      <div class="col-sm-12" style="height: 100px;">
+        <%= link_to content_path(content) do %>
+          <h2 class="col-sm-8" style="color: white;"><%= content.title.truncate(30) %></h2>
+        <% end %>
+        <%= link_to user_path(content.user) do %>
+          <h2 class="col-sm-offset-2 col-sm-2" style="padding-top: 40px;">
+            <%= content.user.name %>
+          </h2>
+        <% end %>
+      </div>
+      <div class="col-sm-12">
+        <%= link_to content_path(content) do %>
+          <video controls name="media" width="100%" heigth="200px">
+              <source src=<%= content.video_url.to_s %>>
+          </video>
+        <% end %>
+      </div>
+      <div class="well col-sm-offset-1 col-sm-10" style="background-color: #333333; height: 150px;">
+        <h3 style="word-break: break-all;"><%= content.description.truncate(144) %></h3>
+      </div>
+      <button type="button" class="center-block">
+      	<%= link_to "　お気に入り解除　",favorite_content_path(favorite_content), method: :delete, class:"btn btn-outline-primary" %>
+     	</button>
+    </div>
+  <% end %>
+</div>
+<div class="text-center">
+  <%= paginate(@favorite_contents) %>
+</div>

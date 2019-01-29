@@ -1,0 +1,13 @@
+<h1 class="text-center" style="margin-bottom: 50px;">ユーザー一覧</h1>
+  <div class="conteiner center-block" style="width: 90%;">
+    <% @users.each do |user| %>
+    <div class="col-sm-4 panel panel-default" style="background-color: #222222; box-shadow:2px 2px #444444;">
+      <div>
+        <%= link_to user_path(user.id) do %>
+          <h3><%= user.name %></h3>
+          <h5 class="text-right"><%= user[:created_at].strftime("%Y-%m-%d %H:%M") %></h5>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>

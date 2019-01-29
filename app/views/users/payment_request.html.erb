@@ -1,0 +1,35 @@
+
+<div class="col-sm-12">
+	<%= form_for(@payment) do |f| %>
+		<h1 class="text-center" style="margin-bottom: 30px;">入金申請</h1>
+		<div class="col-sm-offset-5 col-sm-2 text-center">
+			<%= f.number_field :payment %>
+			<%= f.submit "申請", class: "btn btn-info" %>
+		</div>
+	<% end %>
+</div>
+<h4 class="text-center" style="margin-top: 150px;">
+	※入金の申請は10円単位で可能となっております。
+</h4>
+
+<div class="col-sm-12" style="margin-top: 100px;">
+	<h2 class="text-center" style="margin-bottom: 30px;">申請履歴</h2>
+		<% @payments.each do |payment| %>
+			<div class="col-sm-offset-3 col-sm-6" style="border-bottom: solid 1px white;">
+				<h3 class="col-sm-2">申請日時</h3>
+				<h3 class="col-sm-3"><%= payment[:created_at].strftime("%Y-%m-%d %H:%M") %></h3>
+				<h3 class="col-sm-2">金額</h3>
+				<h3 class="col-sm-2"><%= payment.payment %></h3>
+				<h3 class="col-sm-offset-1 col-sm-2">
+					<% if payment.approval == "1" %>
+						承認済み
+					<% else %>
+						未承認
+					<% end %>
+				</h3>
+			</div>
+		<% end %>
+</div>
+<div class="text-center">
+  <%= paginate(@payments) %>
+</div>

@@ -1,0 +1,12 @@
+<% current_user.followings.each do |user| %>
+<table class="col-xs-offset-4" style="margin-top: 40px;">
+<tr>
+  <td><%= link_to user_path(user) do %>
+  	<h2>
+  		<%= image_tag user.image_url, size: "150x150" %>
+  		<%= user.name %>
+  	</h2>
+  </td><% end %>
+</tr>
+</table>
+<% end %>

@@ -1,0 +1,3 @@
+class BalancesController < ApplicationController
+
+end
