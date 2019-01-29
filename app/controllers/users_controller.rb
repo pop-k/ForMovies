@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_action :authenticate_user! ,except: [:update, :destroy]
+
   def index
 		  @users = User.all
 	end
@@ -33,10 +35,6 @@ class UsersController < ApplicationController
       @payments = Payment.where(user_id: @user.id).page(params[:page]).per(20).order(id: "DESC")
   end
 
-  # def formove_index
-  #     @nagesens = Nagesen.where(user_id: current_user.id)
-  # end
-
 	def edit
 		  @user = User.find(params[:id])
       if current_user.id != @user.id
@@ -49,6 +47,16 @@ class UsersController < ApplicationController
 		  @user.update(user_params)
 		  redirect_to user_path(@user.id)
 	end
+
+  def destroy
+      @user = User.find(params[:id])
+      @user.destroy
+    if admin_signed_in?
+       redirect_to admin_path(current_admin)
+    else
+       redirect_to contents_path
+    end
+  end
 
 private
 
