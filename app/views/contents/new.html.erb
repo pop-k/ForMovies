@@ -1,0 +1,23 @@
+<div class="conteiner" style="height: 600px;">
+  <%= form_for(@content) do |form| %>
+      <div class="col-sm-offset-4" style="margin-top: 20px;">
+        <h3><%= form.label "タイトル" %></h3>
+        <div style=" color: #000000;">
+          <%= form.text_field :title, size: "70x5" %>
+        </div>
+      </div>
+      <div class="col-sm-offset-4" style="margin-top: 20px">
+        <h3><%= form.label "動画" %></h3>
+        <%= form.file_field :video, :accept => 'video/*'%>
+      </div>
+      <div class="col-sm-offset-5" style="margin-top: 20px">
+        <h3><%= form.label "説明" %></h3>
+        <div style=" color: #000000;">
+          <%= form.text_area :description, size: "70x10" %>
+        </div>
+      </div>
+    <div class="actions col-sm-offset-4" style="margin-top: 40px; color: #000000;">
+      <%= form.submit "投稿", style:"width: 200px;" %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,28 @@
+<%= render 'contents/search' %>
+<p id="notice" class="col-sm-offset-1"><%= notice %></p>
+
+<h1 class="text-center" style="margin-bottom: 50px;">新着動画</h1>
+
+  <div class="col-sm-offset-1 col-sm-10">
+    <% @contents.each do |content| %>
+    <div class="col-sm-4" style="margin-bottom: 40px;">
+      <div class="col-sm-12" style="background-color: #111111; box-shadow:3px 4px 7px 2px; border-radius: 15px;">
+        <%= link_to content_path(content.id) do %>
+          <h3 style="color: white; height: 51px;"><%= content.title.truncate(25) %></h3>
+          <video controls name="media" width="100%">
+            <source src=<%= content.video_url.to_s %>>
+          </video>
+        <% end %>
+        <%= link_to user_path(content.user) do %>
+          <h3 class="text-right" style="color: white;"><%= content.user.name %></h3>
+        <% end %>
+          <h5 class="text-right"><%= content[:created_at].strftime("%Y-%m-%d %H:%M") %></h5>
+      </div>
+    </div>
+    <% end %>
+  </div>
+<div class="text-center">
+  <%= paginate(@contents) %>
+</div>
+
+

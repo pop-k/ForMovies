@@ -1,0 +1,24 @@
+ <!DOCTYPE html>
+<html>
+<head>
+	<title>ForMovies</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+	<body>
+		<div style="height: 800px; width: 100%; background-color: #000000;">
+			<%= link_to contents_path do %>
+				<div style="float: right; padding: 170px 150px 0 0 ">
+    				<%= image_tag "/logo.png", :size =>'620x520' %>
+    			</div>
+				<div style="padding: 10px 0 0 100px; color: white; font-size: 120px;">ForMovies</div>
+				<div style="padding: 40px 0 0 350px; color: white; font-size: 90px;">好きな事を</div>
+				<div style="padding: 20px 0 0 500px; color: white; font-size: 90px;">想いを</div>
+				<div style="padding: 60px 0 0 300px; color: white; font-size: 110px;">「カタチに」</div>
+			<% end %>
+		</div>
+	</body>
+</html>

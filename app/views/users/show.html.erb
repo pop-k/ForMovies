@@ -1,0 +1,78 @@
+
+  <div class="col-sm-12" style="margin-top: 30px;">
+    <div class="col-sm-offset-1 col-sm-2 text-center">
+	    <%= image_tag @user.image_url, size: "150x150" %>
+      <h2><%= @user.name %></h2>
+      <h3>残高: <%= @user.balance %> 円</h3>
+    </div>
+    <div class="col-sm-9">
+      <h3 style="width: 50%; word-break: break-all; margin-top: 50px;">
+        <%= @user.introduction %>
+      </h3>
+    </div>
+  </div>
+
+  <!-- フォロー機能 -->
+  <div class="col-sm-12">
+    <h4 class="col-sm-offset-1 col-sm-2 text-center">
+      <%= link_to show_following_path do %>
+        <u style="color: white; text-decoration: none;">
+          フォロー<%= @user.followings.count %></u>
+      <% end %>&emsp;
+      <%= link_to show_follower_path do %>
+        <u style="color: white; text-decoration: none;">
+          フォロワー<%= @user.followers.count %></u>
+      <% end %>
+    </h4>
+  </div>
+  <div class="col-sm-offset-1 col-sm-1 text-center">
+    <%= render 'follow_form' if user_signed_in? %>
+  </div>
+
+<!-- Current User限定機能 -->
+<% if user_signed_in? %>
+  <% if current_user.id == @user.id %>
+    <div class="col-sm-offset-1 col-sm-10" style="height: 350px; margin-top: 60px;">
+      <div class="col-sm-12">
+        <div class="col-sm-4 text-center" style="margin-top: 40px;">
+          <%= link_to payment_request_path do %>
+            <%= image_tag "admin_payments", :size =>"200x200" %>
+            <h3 style="color: white; margin-right: 50px;">入金申請</h3>
+          <% end %>
+        </div>
+        <div class="col-sm-4 text-center" style="margin-top: 20px;">
+          <%= link_to edit_user_path(current_user) do %>
+            <%= image_tag "admin_users.png", :size =>'270x220'%>
+            <h3 style="color: white;">ユーザー編集</h3>
+          <% end %>
+        </div>
+        <div class="col-sm-4 text-center">
+          <%= link_to formove_index_path do %>
+            <%= image_tag "form.png", :size =>'200x150', style:"margin-top: 80px;" %>
+            <h3 style="color: white;">  ForMove 一覧</h3>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- ユーザーの投稿動画一覧 -->
+<div class="col-sm-offset-1 col-sm-10" style=" border-top: solid 1px white; margin-top: 50px;">
+  <div class="col-sm-12" style="margin-top: 42px;">
+  <% @contents.each do |content| %>
+    <div class="col-sm-4">
+      <div>
+        <%= link_to content_path(content.id) do %>
+          <h3 style="color: white;"><%= content.title.truncate(30) %></h3>
+          <video controls name="media" width="100%">
+            <source src=<%= content.video_url.to_s %>>
+          </video>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>
+
+

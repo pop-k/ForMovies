@@ -1,0 +1,112 @@
+<!-- 検索バー -->
+<%= render 'contents/search' %>
+<!-- 投稿成功メッセージ -->
+<p id="notice" class="col-sm-offset-1"><%= notice %></p>
+<!-- ユーザーの残ForMove数 -->
+<h2 class="col-sm-offset-11 col-sm-1">
+  F <%= current_user.balance/10 %>
+</h2>
+
+
+
+<!-- Contentの詳細 -->
+  <div class="col-sm-12">
+    <!-- Formove一覧 -->
+  	<div class="col-sm-3">
+      <div class="col-sm-12" style=" margin-top: 300px;">
+        <h3 class="col-sm-9 text-center">新着ForMove</h3>
+          <div class="col-sm-offset-1 col-sm-10" style="width:250px; height:500px; overflow: scroll; overflow-x: hidden; border: 1px solid white">
+            <% @nagesens.each do |nagesen| %>
+              <div class="col-sm-12">
+                <h5 class="col-sm-12"><%= nagesen.user.name %></h5>
+                <h5 class="col-sm-offset-4 col-sm-8"><%= nagesen[:created_at].strftime("%m-%d %H:%M") %></h5>
+              </div>
+            <% end %>
+        </div>
+      </div>
+    </div>
+    <!-- Contentタイトル、動画 -->
+    <div class="col-sm-9">
+	    <h1 class="col-sm-12">
+		    <p style="word-break: break-all; width: 700px;"><%= @content.title %>
+		      <% if user_signed_in? %>
+		  	    <% if current_user.id == @user.id %>
+		          <%= link_to content_path(@content), method: :delete, data: { confirm: '本当に削除しますか?' } do %>
+		            <div class="btn btn-danger" style="color: white;">削除</div>
+		          <% end %>
+		        <% end %>
+		      <% end %>
+		    </p>
+	    </h1>
+	    <div class="raw">
+        <video controls name="media" width="700px" heigth="200px" class="col-sm-8" style="box-shadow:1px 1px 1px 3px;">
+    	    <source src=<%= @content.video_url.to_s %>>
+  		  </video>
+        <!-- ForMoveボタン -->
+  		  <div class="col-sm-offset-1 col-sm-3" style="padding-top: 300px;">
+  		    <% if user_signed_in? %>
+            <% if current_user.id != @user.id %>
+　		          <%= link_to nagesen_path(content_id: @content.id, user_id: @content.user_id),method: :post do %>
+			          <div class="btn btn-lg btn-primary col-sm-4" style="height: 85px; width: 150px;">
+			  	        <h2>ForMove</h2>
+			          </div>
+              <% end %>
+　		        <% end %>
+		      <% end %>
+		    </div>
+  	  </div>
+      <!-- Content 説明 -->
+  	  <div class="raw">
+  		  <h3 class="col-sm-8" style="background-color: #222222;" >
+  		    <p style="width: 100%; padding: 30px; word-break: break-all;">
+            <%= @content.description %>
+          </p>
+  		  </h3>
+        <!-- お気に入り機能 -->
+  		  <div class="col-sm-4" style="padding-top: 50px;">
+  		    <% if user_signed_in? %>
+            <% if current_user.id != @user.id %>
+  		        <%= link_to add_content_path(@content.id), method: :post do %>
+  			        <h3 class="btn btn-success btn-md">お気に入りに追加
+			            <span class="glyphicon glyphicon-thumbs-up"></span>
+			          </h3>
+  		        <% end %>
+            <% end %>
+  		    <% end %>
+          <h3><%= @content.favorite_contents.count %>人がお気に入りに追加済み</h3>
+  		  </div>
+  	  </div>
+    </div>
+  </div>
+
+
+<!-- コメント投稿 -->
+  <div class="col-sm-12"">
+    <div class="col-sm-offset-8 col-sm-4">
+  	  <% if user_signed_in? %>
+	      <%= form_for @comment do |f| %>
+		      <h4>コメント投稿</h4>
+		        <%= f.text_area :body, placeholder:"コメントを入力してださい", :size=>"70", style:"color: #000000" %>
+		      <div class="text-center" style="margin-top: 30px;">
+			      <%= f.hidden_field :content_id, :value => @content.id %>
+			      <%= f.submit "投稿", class: "btn btn-primary active" %>
+		      </div>
+	      <% end %>
+	    <% end %>
+	  </div>
+    <!-- コメント一覧 -->
+  	<div class="col-sm-offset-3 col-sm-6">
+  	  <h2 class="text-center">コメント一覧</h2>
+  	    <% @comments.each do |comment| %>
+  	      <div class="col-sm-12" style="height: 100px; background-color: #222222; border-bottom: solid 3px #000000;">
+  	        <div class="col-sm-offset-1 col-sm-10">
+  	      	  <h3 class="col-sm-12"><%= comment.body %></h3>
+  	      	  <h4 class="col-sm-offset-10 col-sm-2"><%= comment.user.name %></h4>
+  	        </div>
+  	      </div>
+  	    <% end %>
+  	</div>
+  </div>
+  <div class="text-center">
+    <%= paginate(@comments) %>
+  </div>

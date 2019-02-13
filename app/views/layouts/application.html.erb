@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ForMovies</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <!-- ユーザーログイン時 -->
+  <% if user_signed_in? %>
+    <header style="height: 200px;">
+      <div style="margin-top:20px;">
+        <div class="col-sm-12" style="height: 90px;">
+          <div class="col-sm-2">
+            <%= link_to contents_path do %>
+              <%= image_tag "/logo.png", :size =>'180x180' %>
+            <% end %>
+          </div>
+          <h2 class="col-sm-2">
+            ForMove　<%= current_user.balance/10 %>
+          </h2>
+          <div class="col-sm-3 text-center">
+            <%= link_to new_content_path do %>
+              <%= image_tag "/content.png", :size =>"80x80" %>
+              <h3 style="color: white;">新規投稿</h3>
+            <% end %>
+          </div>
+          <div class="col-sm-offset-3 col-sm-2 text-center">
+            <%= link_to destroy_user_session_path, method: :delete do %>
+              <%= image_tag "/logout.jpg", :size =>"80x80" %>
+              <h3 style="color: white;">ログアウト</h3>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="col-sm-12">
+          <div class="col-sm-offset-3 col-sm-2 text-center">
+            <%= link_to time_line_path do %>
+              <%= image_tag "/timeline.png", :size =>"75x75" %>
+              <h3 style="color: white;">タイムライン</h3>
+            <% end %>
+          </div>
+          <div class="col-sm-offset-1 col-sm-2 text-center">
+            <%= link_to favorite_contents_path do %>
+              <%= image_tag "/favorite.png", :size =>"75x75" %>
+              <h3 style="color: white;">お気に入り</h3>
+            <% end %>
+          </div>
+          <div class="col-sm-3 text-center">
+            <%= link_to user_path(current_user) do %>
+              <%= image_tag "/user.png", :size =>"75x75" %>
+              <h3 style="color: white;">マイページ</h3>
+            <% end %>
+          </div>
+        </div>
+    </header>
+
+
+   <% elsif admin_signed_in? %>
+
+    <header>
+      <div class="col-sm-1 col-sm-1 text-center"　style="heigh: 50px;">
+        <%= link_to admin_path(current_admin) do %>
+          <%= image_tag "/user.png", :size =>"65x65" %>
+          <h4 style="color: white;">管理者</h4>
+        <% end %>
+      </div>
+      <div class="col-sm-offset-10 col-sm-1 text-center"　style="heigh: 50px;">
+        <%= link_to destroy_admin_session_path, method: :delete do %>
+          <%= image_tag "/logout.jpg", :size =>"65x65" %>
+          <h4 style="color: white;">ログアウト</h4>
+        <% end %>
+      </div>
+    </header>
+
+
+   <% else %>
+
+    <header style="height: 200px;">
+      <div style="margin-top:20px;">
+        <div class="col-sm-12" style="height: 90px;">
+          <div class="col-sm-2 text-center">
+            <%= link_to contents_path do %>
+              <%= image_tag "/logo.png", :size =>'200x200' %>
+            <% end %>
+          </div>
+          <div class="col-sm-offset-2 col-sm-1 text-center">
+            <%= link_to about_path do %>
+              <%= image_tag "/form.png", :size =>"100x100" %>
+              <h3 style="color: white;">ForMoviesとは</h3>
+            <% end %>
+          </div>
+          <div class="col-sm-offset-2 col-sm-5 text-center">
+            <%= link_to new_user_registration_path do %>
+              <%= image_tag "/top_man.png", :size =>"110x110" %>
+              <h3 style="color: white;">新規登録</h3>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-sm-12" style="height: 100px;">
+          <div class="col-sm-offset-6 col-sm-4 text-center">
+            <%= link_to new_user_session_path do %>
+              <%= image_tag "/login.jpg", :size =>"120x120" %>
+              <h3 style="color: white;">ログイン</h3>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="col-sm-offset-11 col-sm-1 text-center" >
+            <%= link_to new_admin_session_path do %>
+              <%= image_tag "/admin_login.png", :size =>"40x40" %>
+              <h5 style="color: white;">管理者</h5>
+            <% end %>
+          </div>
+        </div>
+    </header>
+
+  <% end %>
+      <div style="height: 70px;"></div>
+    <%= yield %>
+  </body>
+</html>
