@@ -11,14 +11,15 @@
       </h3>
     </div>
   </div>
+
   <!-- フォロー機能 -->
   <div class="col-sm-12">
     <h4 class="col-sm-offset-1 col-sm-2 text-center">
-      <%= link_to show_follow_path do %>
+      <%= link_to show_following_path do %>
         <u style="color: white; text-decoration: none;">
           フォロー<%= @user.followings.count %></u>
       <% end %>&emsp;
-      <%= link_to user_path(@user) do %>
+      <%= link_to show_follower_path do %>
         <u style="color: white; text-decoration: none;">
           フォロワー<%= @user.followers.count %></u>
       <% end %>
@@ -73,5 +74,4 @@
   <% end %>
   </div>
 </div>
-
 

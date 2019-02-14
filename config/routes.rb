@@ -10,10 +10,12 @@ Rails.application.routes.draw do
   passwords:     'users/passwords',
   registrations: 'users/registrations'
 }
-
+  root "contents#top"
+  get "/about" => "contents#about"
   get "contents/search_result" => "contents#search_result", as:"search"
-  get '/favorite_contents' => 'users#favorite_contents'
-  get '/show_follow' => 'users#show_follow'
+  get "/favorite_contents" => "users#favorite_contents"
+  get "/show_following" => "users#show_following"
+  get "/show_follower" => "users#show_follower"
   get "/time_line" => "contents#time_line"
   get "/payment_request" => "users#payment_request"
   get "/payments" => "admins#payments"

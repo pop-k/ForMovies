@@ -16,8 +16,13 @@ class PaymentsController < ApplicationController
   	end
 
   	def nagesen
+      @nagesen = Nagesen.new
   		@content = Content.find(params[:content_id])
   		@user = User.find(params[:user_id])
+      @nagesen.user_id = current_user.id
+      @nagesen.receive_user_id = @user.id
+      @nagesen.content_id = @content.id
+      @nagesen.save
   		@user.update(balance: @user.balance += 10)
   		current_user.update(balance: current_user.balance -= 10)
   		redirect_to content_path(@content)
@@ -34,4 +39,8 @@ class PaymentsController < ApplicationController
 	def payment_params
     	params.require(:payment).permit(:payment, :user_id)
  	end
+  def nagesen_params
+      params.require(:nagesen).permit(:user_id, :receive_user_id, :content_id)
+  end
 end
+

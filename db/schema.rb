@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_28_091052) do
+ActiveRecord::Schema.define(version: 2019_02_03_144942) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -48,6 +48,14 @@ ActiveRecord::Schema.define(version: 2019_01_28_091052) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "nagesens", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "receive_user_id"
+    t.integer "content_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "payments", force: :cascade do |t|
     t.integer "payment"
     t.integer "user_id"
@@ -67,7 +75,7 @@ ActiveRecord::Schema.define(version: 2019_01_28_091052) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "name", default: "", null: false
-    t.integer "balance", default: 0
+    t.integer "balance", default: 0, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -85,3 +93,4 @@ ActiveRecord::Schema.define(version: 2019_01_28_091052) do
   end
 
 end
+

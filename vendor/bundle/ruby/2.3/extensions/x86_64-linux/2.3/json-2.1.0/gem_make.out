@@ -1,0 +1,14 @@
+current directory: /var/www/html/ForMovies/vendor/bundle/ruby/2.3/gems/json-2.1.0/ext/json
+/usr/bin/ruby2.3 -r ./siteconf20190213-5696-192ldms.rb extconf.rb
+creating Makefile
+
+current directory: /var/www/html/ForMovies/vendor/bundle/ruby/2.3/gems/json-2.1.0/ext/json
+make "DESTDIR=" clean
+rm -f .so  *.o  *.bak mkmf.log .*.time
+
+current directory: /var/www/html/ForMovies/vendor/bundle/ruby/2.3/gems/json-2.1.0/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /var/www/html/ForMovies/vendor/bundle/ruby/2.3/gems/json-2.1.0/ext/json
+make "DESTDIR=" install

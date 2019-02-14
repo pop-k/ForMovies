@@ -3,7 +3,7 @@
 	<%= form_for(@payment) do |f| %>
 		<h1 class="text-center" style="margin-bottom: 30px;">入金申請</h1>
 		<div class="col-sm-offset-5 col-sm-2 text-center">
-			<%= f.number_field :payment %>
+			<%= f.number_field :payment, style: 'color: #000000' %>
 			<%= f.submit "申請", class: "btn btn-info" %>
 		</div>
 	<% end %>
@@ -21,7 +21,7 @@
 				<h3 class="col-sm-2">金額</h3>
 				<h3 class="col-sm-2"><%= payment.payment %></h3>
 				<h3 class="col-sm-offset-1 col-sm-2">
-					<% if payment.approval == "1" %>
+					<% if payment.approval != nil %>
 						承認済み
 					<% else %>
 						未承認

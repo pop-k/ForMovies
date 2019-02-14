@@ -15,6 +15,9 @@ class User < ApplicationRecord
 #入金申請との紐づけ
   has_many :payments, dependent: :destroy, inverse_of: :user
 
+#投げ銭との紐づけ
+  has_many :nagesens, dependent: :destroy, inverse_of: :user
+
 #お気に入り動画
   has_many :favorite_contents
   has_many :content, :through => :favorite_contents

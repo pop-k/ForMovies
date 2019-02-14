@@ -23,6 +23,14 @@ class UsersController < ApplicationController
    	  redirect_to show_follow_path
   end
 
+  def show_following
+      @users = current_user.followings
+  end
+
+  def show_follower
+      @users = current_user.followers
+  end
+
   def favorite_contents
       @user = current_user
       @favorite_contents = FavoriteContent.where(user_id: @user.id).page(params[:page]).per(10).order(id: "DESC")
@@ -33,6 +41,11 @@ class UsersController < ApplicationController
   		@user = User.find(current_user[:id])
   	  @payment = Payment.new
       @payments = Payment.where(user_id: @user.id).page(params[:page]).per(20).order(id: "DESC")
+  end
+
+  def formove_index
+      @receive_nagesens = Nagesen.where(receive_user_id: current_user.id)
+      @nagesens = Nagesen.where(user_id: current_user.id)
   end
 
 	def edit
@@ -72,3 +85,4 @@ private
       params.require(:payment).permit(:payment)
  	end
 end
+

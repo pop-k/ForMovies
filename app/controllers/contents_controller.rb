@@ -1,5 +1,11 @@
 class ContentsController < ApplicationController
-# before_action :set_content, only: [:show, :edit, :update, :destroy]
+
+  def top
+      render :layout => nil
+  end
+
+  def about
+  end
 
 	def index
       @keyword = Content.ransack(params[:q])
@@ -15,12 +21,13 @@ class ContentsController < ApplicationController
       @content = Content.find(params[:id])
       @user = @content.user
       @comment = Comment.new
-      @comments = Comment.where(content_id: @content.id).per(40).order(id: "DESC")
+      @comments = Comment.where(content_id: @content.id).page(params[:page]).per(40).order(id: "DESC")
       @keyword = Content.ransack(params[:q])
+      @nagesens = Nagesen.where(content_id: @content.id).limit(30).order(id: "DESC")
   end
 
   def time_line
-      @contents = Content.where(user_id: current_user.following_ids)
+      @contents = Content.where(user_id: current_user.following_ids).order(id: "DESC")
       @keyword = Content.ransack(params[:q])
   end
 
@@ -51,6 +58,7 @@ class ContentsController < ApplicationController
   end
 
 	def destroy
+      @content = Content.find(params[:id])
       @content.destroy
       respond_to do |format|
       format.html { redirect_to contents_url, notice: 'Content was successfully destroyed.' }
