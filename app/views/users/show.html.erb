@@ -5,7 +5,7 @@
       <h2><%= @user.name %></h2>
       <h3>残高: <%= @user.balance %> 円</h3>
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-offset-1 col-sm-8">
       <h3 style="width: 50%; word-break: break-all; margin-top: 50px;">
         <%= @user.introduction %>
       </h3>
@@ -14,7 +14,7 @@
 
   <!-- フォロー機能 -->
   <div class="col-sm-12">
-    <h4 class="col-sm-offset-1 col-sm-2 text-center">
+    <h4 class="col-sm-4 text-center">
       <%= link_to show_following_path do %>
         <u style="color: white; text-decoration: none;">
           フォロー<%= @user.followings.count %></u>
@@ -32,23 +32,23 @@
 <!-- Current User限定機能 -->
 <% if user_signed_in? %>
   <% if current_user.id == @user.id %>
-    <div class="col-sm-offset-1 col-sm-10" style="height: 350px; margin-top: 60px;">
+    <div class="col-sm-offset-1 col-sm-10" style="height: 350px; margin-top: 30px;">
       <div class="col-sm-12">
         <div class="col-sm-4 text-center" style="margin-top: 40px;">
           <%= link_to payment_request_path do %>
-            <%= image_tag "admin_payments", :size =>"200x200" %>
+            <%= image_tag "/admin_payments.jpg", :size =>"200x200" %>
             <h3 style="color: white; margin-right: 50px;">入金申請</h3>
           <% end %>
         </div>
         <div class="col-sm-4 text-center" style="margin-top: 20px;">
           <%= link_to edit_user_path(current_user) do %>
-            <%= image_tag "admin_users.png", :size =>'270x220'%>
+            <%= image_tag "/admin_users.png", :size =>'270x220'%>
             <h3 style="color: white;">ユーザー編集</h3>
           <% end %>
         </div>
         <div class="col-sm-4 text-center">
           <%= link_to formove_index_path do %>
-            <%= image_tag "form.png", :size =>'200x150', style:"margin-top: 80px;" %>
+            <%= image_tag "/form.png", :size =>'200x150', style:"margin-top: 80px;" %>
             <h3 style="color: white;">  ForMove 一覧</h3>
           <% end %>
         </div>

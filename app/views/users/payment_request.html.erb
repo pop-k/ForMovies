@@ -1,31 +1,40 @@
 
 <div class="col-sm-12">
 	<%= form_for(@payment) do |f| %>
-		<h1 class="text-center" style="margin-bottom: 30px;">入金申請</h1>
-		<div class="col-sm-offset-5 col-sm-2 text-center">
-			<%= f.number_field :payment, style: 'color: #000000' %>
-			<%= f.submit "申請", class: "btn btn-info" %>
+		<h1 class="col-sm-12 text-center" style="padding-bottom: 10px;">入金申請</h1>
+		<div class="col-sm-12 text-center" style="padding-bottom: 10px;">
+			<%= f.number_field :payment, style: 'color: #000000;' %>
+		</div>
+		<div class="col-sm-12 text-center"> 
+			<%= f.submit "申請", class: " btn btn-info", style: "color: #000000;" %>
 		</div>
 	<% end %>
 </div>
-<h4 class="text-center" style="margin-top: 150px;">
-	※入金の申請は10円単位で可能となっております。
-</h4>
+
+<h4 class="col-sm-12 text-center" style="margin-top: 30px;">※入金の申請は10円単位で可能となっております。</h4>
 
 <div class="col-sm-12" style="margin-top: 100px;">
 	<h2 class="text-center" style="margin-bottom: 30px;">申請履歴</h2>
 		<% @payments.each do |payment| %>
-			<div class="col-sm-offset-3 col-sm-6" style="border-bottom: solid 1px white;">
-				<h3 class="col-sm-2">申請日時</h3>
-				<h3 class="col-sm-3"><%= payment[:created_at].strftime("%Y-%m-%d %H:%M") %></h3>
-				<h3 class="col-sm-2">金額</h3>
-				<h3 class="col-sm-2"><%= payment.payment %></h3>
-				<h3 class="col-sm-offset-1 col-sm-2">
-					<% if payment.approval != nil %>
-						承認済み
-					<% else %>
-						未承認
-					<% end %>
+			<div class="col-sm-offset-2 col-sm-8" style="border-bottom: solid 1px white;">
+				<h3 class="col-sm-3 text-center">申請日時</h3>
+				<h3 class="col-sm-3">
+					<div class="col-sm-12 text-center"><%= payment[:created_at].strftime("%Y-%m-%d") %></div>
+					<div class="col-sm-12 text-center"><%= payment[:created_at].strftime("%H:%M") %></div>
+				</h3>
+				<h3 class="col-sm-3">
+					<div class="col-sm-12 text-center">金額</div>
+					<div class="col-sm-12 text-right"><%= payment.payment %>円</div>
+				</h3>
+				<h3 class="col-sm-3">
+					<div class="col-sm-12 text-center">ステータス</div>
+					<div class="col-sm-12 text-center">
+						<% if payment.approval != nil %>
+							承認済み
+						<% else %>
+							未承認
+						<% end %>
+					</div>
 				</h3>
 			</div>
 		<% end %>
