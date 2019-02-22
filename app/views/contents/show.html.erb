@@ -64,17 +64,25 @@
           </p>
   		  </h3>
         <!-- お気に入り機能 -->
-  		  <div class="col-sm-4" style="padding-top: 50px;">
+		<div class="col-sm-4" style="padding-top: 50px;">
   		    <% if user_signed_in? %>
-            <% if current_user.id != @user.id %>
-  		        <%= link_to add_content_path(@content.id), method: :post do %>
-  			        <h3 class="btn btn-success btn-md">お気に入りに追加
-			            <span class="glyphicon glyphicon-thumbs-up"></span>
-			          </h3>
-  		        <% end %>
-            <% end %>
-  		    <% end %>
-          <h4><%= @content.favorite_contents.count %>人がお気に入りに追加済み</h4>
+            		<% if current_user.id != @user.id %>
+              			<% if !FavoriteContent.exists?(user_id:current_user.id,content_id:@content.id) %>
+  		          		<%= link_to add_content_path(@content.id), method: :post do %>
+  			         		<h3 class="btn btn-success btn-md">お気に入りに追加
+			             			<span class="glyphicon glyphicon-thumbs-up"></span>
+			           		</h3>
+                			<% end %>
+              			<% else %>
+                			<h3 style="padding-left: 20px;">
+                  				<span class="glyphicon glyphicon-thumbs-up"></span>
+                   				 お気に入り動画
+                  				<span class="glyphicon glyphicon-thumbs-up"></span>
+                			</h3>
+  		        	<% end %>
+            		<% end %>
+          	<% end %>
+          <h3><%= @content.favorite_contents.count %>人がお気に入りに追加済み</h3>
   		  </div>
   	  </div>
     </div>
