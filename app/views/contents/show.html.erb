@@ -3,17 +3,18 @@
 <!-- 投稿成功メッセージ -->
 <p id="notice" class="col-sm-offset-1"><%= notice %></p>
 <!-- ユーザーの残ForMove数 -->
-<h2 class="col-sm-offset-11 col-sm-1">
-  F <%= current_user.balance/10 %>
-</h2>
-
+<% if user_signed_in? %>
+	<h2 class="col-sm-offset-11 col-sm-1">
+ 		 F <%= current_user.balance/10 %>
+	</h2>
+<% end %>
 
 
 <!-- Contentの詳細 -->
   <div class="col-sm-12">
     <!-- Formove一覧 -->
   	<div class="col-sm-3">
-      <div class="col-sm-12" style=" margin-top: 300px;">
+      <div class="col-sm-12" style=" margin-top: 150px;">
         <h3 class="col-sm-9 text-center">新着ForMove</h3>
           <div class="col-sm-offset-1 col-sm-10" style="width:250px; height:500px; overflow: scroll; overflow-x: hidden; border: 1px solid white">
             <% @nagesens.each do |nagesen| %>
@@ -43,7 +44,7 @@
     	    <source src=<%= @content.video_url.to_s %>>
   		  </video>
         <!-- ForMoveボタン -->
-  		  <div class="col-sm-offset-1 col-sm-3" style="padding-top: 300px;">
+  		  <div class="col-sm-offset-1 col-sm-3" style="padding-top: 200px;">
   		    <% if user_signed_in? %>
             <% if current_user.id != @user.id %>
 　		          <%= link_to nagesen_path(content_id: @content.id, user_id: @content.user_id),method: :post do %>
@@ -73,7 +74,7 @@
   		        <% end %>
             <% end %>
   		    <% end %>
-          <h3><%= @content.favorite_contents.count %>人がお気に入りに追加済み</h3>
+          <h4><%= @content.favorite_contents.count %>人がお気に入りに追加済み</h4>
   		  </div>
   	  </div>
     </div>
