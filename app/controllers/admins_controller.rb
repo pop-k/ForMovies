@@ -3,12 +3,16 @@ class AdminsController < ApplicationController
 before_action :authenticate_admin!
 
 	def show
-		@users = User.all
 	end
 
 	def payments
 		@payments = Payment.all
 	end
+
+	def index
+		@users = User.all
+	end
+
 
 end
 
