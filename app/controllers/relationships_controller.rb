@@ -12,7 +12,7 @@ class RelationshipsController < ApplicationController
 		redirect_to user_path(@user)
 	end
 
-	private
+  private
 	def create_params
 		params.permit(:following_id).merge(follower_id: current_user.id)
 	end
