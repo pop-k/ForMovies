@@ -1,22 +1,21 @@
 class AdminsController < ApplicationController
 
-before_action :authenticate_admin!
+  before_action :authenticate_admin!
 
 	def show
 	end
 
 	def payments
-		@payments = Payment.all
+	    @payments = Payment.all
 	end
 
 	def index
-		@users = User.all
+	    @users = User.all
 	end
+	
+  end
 
-
-end
-
-private
+  private
 	def payment_params
-    	   params.require(:payment).permit(:payment)
+    	    params.require(:payment).permit(:payment)
  	end
